@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ConsultaCepService } from '../service/consulta-cep.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -9,7 +10,11 @@ import { NgForm } from '@angular/forms';
 })
 export class CadastroComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private cepService: ConsultaCepService
+    ) { }
+
 
   ngOnInit(): void {
   }
@@ -20,6 +25,26 @@ export class CadastroComponent implements OnInit {
     } else {
       alert('Formulário inválido')
     }
-    console.log('Formulário enviado');
+  }
+
+  consultaCEP(event: any, f: NgForm) {
+    const cep = event.target.value;
+
+    if (cep !== '') {
+      this.cepService.getConsultaCep(cep).subscribe((dados: any) => {
+        this.popularDadosForm(dados, f);
+      })
+    }
+  }
+
+  popularDadosForm(dados: any, f: NgForm) {
+    f.form.patchValue({
+      endereco: {
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    });
   }
 }
