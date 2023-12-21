@@ -102,31 +102,35 @@
 
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="endereco">Endereço</label>
-      <input name="endereco" id="endereco" class="campo__escrita" />
+      <input name="endereco" id="endereco" class="campo__escrita" ngModel #endereco="ngModel" required />
+      <small class="erro__texto" *ngIf="endereco.errors?.['required'] && endereco.touched">Campo endereço obrigatório.</small>
     </div>
     <div class="formulario__dupla">
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="numero">Numero</label>
-        <input name="numero" id="numero" class="campo__escrita" />
+        <input name="numero" id="numero" class="campo__escrita" ngModel #numero="ngModel" required />
+        <small class="erro__texto" *ngIf="numero.errors?.['required'] && numero.touched">Campo numero obrigatório.</small>
       </div>
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="complemento">Complemento</label>
-        <input name="complemento" id="complemento" class="campo__escrita" />
+        <input name="complemento" id="complemento" class="campo__escrita" ngModel />
       </div>
     </div>
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="bairro">Bairro</label>
-      <input name="bairro" id="bairro" class="campo__escrita" />
+      <input name="bairro" id="bairro" class="campo__escrita" ngModel #bairro="ngModel" required />
+      <small class="erro__texto" *ngIf="bairro.errors?.['required'] && bairro.touched">Campo bairro obrigatório.</small>
     </div>
     <div class="formulario__dupla">
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="cidade">Cidade</label>
-        <input name="cidade" id="cidade" class="campo__escrita" />
+        <input name="cidade" id="cidade" class="campo__escrita" ngModel #cidade="ngModel" required />
+        <small class="erro__texto" *ngIf="cidade.errors?.['required'] && cidade.touched">Campo cidade obrigatório.</small>
       </div>
 
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="estado">UF</label>
-        <select id="estado" name="estado" class="campo__escrita">
+        <select id="estado" name="estado" class="campo__escrita" ngModel #estado="ngModel" required>
           <option value="AC">Acre</option>
           <option value="AL">Alagoas</option>
           <option value="AP">Amapá</option>
@@ -156,9 +160,12 @@
           <option value="TO">Tocantins</option>
           <option value="EX">Estrangeiro</option>
         </select>
+        <small class="erro__texto" *ngIf="estado.errors?.['required'] && estado.touched">Selecione um estado.</small>
       </div>
 
     </div>
-    <button type="submit" class="formulario__botao">Enviar formulário</button>
-    </form>
+
+
+    <button type="submit" class="formulario__botao" [disabled]="f.invalid">Enviar formulário</button>
+  </form>
 </main>

@@ -32,6 +32,7 @@ export class CadastroComponent implements OnInit {
 
     if (cep !== '') {
       this.cepService.getConsultaCep(cep).subscribe((dados: any) => {
+        console.log({dados})
         this.popularDadosForm(dados, f);
       })
     }
@@ -39,12 +40,11 @@ export class CadastroComponent implements OnInit {
 
   popularDadosForm(dados: any, f: NgForm) {
     f.form.patchValue({
-      endereco: {
-        rua: dados.logradouro,
-        bairro: dados.bairro,
-        cidade: dados.localidade,
-        estado: dados.uf
-      }
+      endereco: dados.logradouro,
+      complemento: dados.complemento,
+      bairro: dados.bairro,
+      cidade: dados.localidade,
+      estado: dados.uf
     });
   }
 }
