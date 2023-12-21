@@ -9,8 +9,11 @@
         ngModel 
         required 
         minlength="2">
-        <span class="erro__texto" *ngIf="f.controls['nome']?.errors?.['required']">O campo nome deve ser preenchido</span>
-        <span class="erro__texto" *ngIf="f.controls['nome']?.errors?.['minlength']">O campo nome deve ter no minimo 2 caracteres</span>
+        <div *ngIf="(f.controls['nome']?.invalid && f.controls['nome']?.touched) || f.controls['nome']?.dirty" >
+          <span class="erro__texto" *ngIf="f.controls['nome']?.errors?.['required']">O campo nome deve ser preenchido</span>
+          <span class="erro__texto" *ngIf="f.controls['nome']?.errors?.['minlength']">O campo nome deve ter no minimo 2 caracteres</span>
+        </div>
+
     </div>
     <div class="formulario__dupla">
       <div class="formulario__campo">
